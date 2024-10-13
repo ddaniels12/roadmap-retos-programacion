@@ -1,0 +1,27 @@
+import zipfile
+import os
+
+def comprimir_archivo(ruta_archivo):
+    # Obtener el nombre del archivo y su directorio
+    directorio = os.path.dirname(ruta_archivo)
+    nombre_archivo = os.path.basename(ruta_archivo)
+    nombre_base, _ = os.path.splitext(nombre_archivo)
+    
+    # Crear la ruta para el archivo comprimido
+    ruta_zip = os.path.join(directorio, f"{nombre_base}.zip")
+    
+    # Comprimir el archivo
+    with zipfile.ZipFile(ruta_zip, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        zip_file.write(ruta_archivo, nombre_archivo)
+    
+    print(f"Archivo comprimido creado: {ruta_zip}")
+    
+    tamano_original = os.path.getsize(ruta_archivo)
+    tamano_comprimido = os.path.getsize(ruta_zip)
+    print(f"Tamaño original: {tamano_original} bytes")
+    print(f"Tamaño comprimido: {tamano_comprimido} bytes")
+
+# Ruta del archivo a comprimir
+ruta_archivo = r"ruta del archivo"
+
+comprimir_archivo(ruta_archivo)
